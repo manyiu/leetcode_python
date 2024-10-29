@@ -37,6 +37,25 @@ class TimeMap:
 
         return res
 
+    # Without res variable
+    # def get(self, key: str, timestamp: int) -> str:
+    #     if key not in self.store:
+    #         return ""
+
+    #     timeline = self.store[key]
+
+    #     l, r = 0, len(timeline) - 1
+
+    #     while l <= r:
+    #         m = l + (r - l) // 2
+
+    #         if timeline[m][0] > timestamp:
+    #             r = m - 1
+    #         else:
+    #             l = m + 1
+
+    #     return timeline[r][1] if r >= 0 else ""
+
 
 # Your TimeMap object will be instantiated and called as such:
 # obj = TimeMap()
