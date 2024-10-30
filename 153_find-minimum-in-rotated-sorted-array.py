@@ -17,6 +17,22 @@ class Solution:
         return nums[l]
 
 
+# class Solution:
+#     def findMin(self, nums: List[int]) -> int:
+#         l, r = 0, len(nums) - 1
+
+#         while l <= r:
+#             m = l + (r - l) // 2
+#             if nums[m] >= nums[r]:
+#                 l = m + 1
+#             # Can not be nums[m] <= nums[r] since it will create infinite loop
+#             else:
+#                 r = m
+
+#         # In the final iteration, the nums[m] >= nums[r] will shift the l to min + 1
+#         return nums[l - 1]
+
+
 class TestFindMin(unittest.TestCase):
 
     def test(self):
