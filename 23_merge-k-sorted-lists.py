@@ -32,6 +32,43 @@ class Solution:
         return res.next
 
 
+# # Merge List
+# class Solution:
+#     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+#         if len(lists) == 0:
+#             return None
+
+#         res = lists[0]
+
+#         for i in range(1, len(lists)):
+#             temp = ListNode()
+#             curr = temp
+#             a = res
+#             b = lists[i]
+
+#             while a or b:
+#                 if not a:
+#                     curr.next = b
+#                     break
+
+#                 if not b:
+#                     curr.next = a
+#                     break
+
+#                 if a.val < b.val:
+#                     curr.next = a
+#                     a = a.next
+#                 else:
+#                     curr.next = b
+#                     b = b.next
+
+#                 curr = curr.next
+
+#             res = temp.next
+
+#         return res
+
+
 class TestSolution(unittest.TestCase):
     def test_1(self):
         lists = [
