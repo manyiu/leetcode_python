@@ -11,24 +11,48 @@ class TreeNode:
 
 class Solution:
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
-        res = 0
+        stack = [root]
+        hashmap = {None: (0, 0)}
 
-        def dfs(node: Optional[TreeNode]):
-            nonlocal res
+        while stack:
+            node = stack[-1]
 
-            if not node:
-                return 0
+            if node.left and node.left not in hashmap:
+                stack.append(node.left)
+            elif node.right and node.right not in hashmap:
+                stack.append(node.right)
+            else:
+                node = stack.pop()
 
-            leftHeight = dfs(node.left)
-            rightHeight = dfs(node.right)
+                leftHeight, leftDiameter = hashmap[node.left]
+                rightHeight, rightDiameter = hashmap[node.right]
 
-            res = max(res, leftHeight + rightHeight)
+                hashmap[node] = (
+                    1 + max(leftHeight, rightHeight),
+                    max(leftHeight + rightHeight, leftDiameter, rightDiameter),
+                )
 
-            return 1 + max(leftHeight, rightHeight)
+        return hashmap[root][1]
 
-        dfs(root)
+    # def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+    #     res = 0
 
-        return res
+    #     def dfs(node: Optional[TreeNode]):
+    #         nonlocal res
+
+    #         if not node:
+    #             return 0
+
+    #         leftHeight = dfs(node.left)
+    #         rightHeight = dfs(node.right)
+
+    #         res = max(res, leftHeight + rightHeight)
+
+    #         return 1 + max(leftHeight, rightHeight)
+
+    #     dfs(root)
+
+    #     return res
 
 
 class TestSolution(unittest.TestCase):
