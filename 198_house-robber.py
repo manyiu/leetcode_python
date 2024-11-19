@@ -4,23 +4,31 @@ import unittest
 
 class Solution:
     def rob(self, nums: List[int]) -> int:
-        if len(nums) == 1:
-            return nums[0]
+        rob1, rob2 = 0, 0
 
-        if len(nums) == 2:
-            return max(nums[0], nums[1])
+        for n in nums:
+            rob2, rob1 = max(n + rob1, rob2), rob2
 
-        if len(nums) == 3:
-            return max(nums[0] + nums[2], nums[1])
+        return rob2
 
-        dp = nums[:]
+    # def rob(self, nums: List[int]) -> int:
+    #     if len(nums) == 1:
+    #         return nums[0]
 
-        dp[2] = nums[0] + nums[2]
+    #     if len(nums) == 2:
+    #         return max(nums[0], nums[1])
 
-        for i in range(3, len(nums)):
-            dp[i] = nums[i] + max(dp[i - 3], dp[i - 2])
+    #     if len(nums) == 3:
+    #         return max(nums[0] + nums[2], nums[1])
 
-        return max(dp[len(dp) - 2], dp[len(dp) - 1])
+    #     dp = nums[:]
+
+    #     dp[2] = nums[0] + nums[2]
+
+    #     for i in range(3, len(nums)):
+    #         dp[i] = nums[i] + max(dp[i - 3], dp[i - 2])
+
+    #     return max(dp[len(dp) - 2], dp[len(dp) - 1])
 
     # def rob(self, nums: List[int]) -> int:
     #     cache = {}
