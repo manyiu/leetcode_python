@@ -40,7 +40,3 @@ class TestSolution(unittest.TestCase):
     def test_3(self):
         n = 1111111
         self.assertEqual(Solution().isHappy(n), True)
-
-    def test_4(self):
-        n = 1111112
-        self.assertEqual(Solution().isHappy(n), False)
