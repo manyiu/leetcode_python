@@ -5,10 +5,10 @@ class Solution:
     def getSum(self, a: int, b: int) -> int:
         mask = 0xFFFFFFFF
 
-        while b:
-            a, b = (a ^ b) & mask, ((a & b) << 1) & mask
+        while b & mask:
+            a, b = a ^ b, (a & b) << 1
 
-        return a if a <= 0x7FFFFFFF else ~(a ^ mask)
+        return a & mask if b > mask else a
 
     # def getSum(self, a: int, b: int) -> int:
     #     while b:
