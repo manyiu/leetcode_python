@@ -5,24 +5,39 @@ class Solution:
     def countGoodStrings(self, low: int, high: int, zero: int, one: int) -> int:
         mod = 10**9 + 7
 
-        cache = {}
+        dp = [0] * (high + 1)
 
-        def dfs(length: int) -> int:
-            if length > high:
-                return 0
-            if length in cache:
-                return cache[length]
+        dp[0] = 1
 
-            cache[length] = 0
+        for i in range(1, high + 1):
+            if i - zero >= 0:
+                dp[i] += dp[i - zero]
+            if i - one >= 0:
+                dp[i] += dp[i - one]
 
-            if length >= low:
-                cache[length] += 1
+        return sum(dp[low : high + 1]) % mod
 
-            cache[length] += dfs(length + zero) + dfs(length + one)
+    # def countGoodStrings(self, low: int, high: int, zero: int, one: int) -> int:
+    #     mod = 10**9 + 7
 
-            return cache[length] % mod
+    #     cache = {}
 
-        return dfs(0)
+    #     def dfs(length: int) -> int:
+    #         if length > high:
+    #             return 0
+    #         if length in cache:
+    #             return cache[length]
+
+    #         cache[length] = 0
+
+    #         if length >= low:
+    #             cache[length] += 1
+
+    #         cache[length] += dfs(length + zero) + dfs(length + one)
+
+    #         return cache[length] % mod
+
+    #     return dfs(0)
 
 
 class TestSolution(unittest.TestCase):
