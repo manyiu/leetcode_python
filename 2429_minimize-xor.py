@@ -15,38 +15,56 @@ class Solution:
         num1_bit_count = self.bit_count(num1)
         num2_bit_count = self.bit_count(num2)
 
-        diff = num1_bit_count - num2_bit_count
+        x = num1
+        i = 0
 
-        if diff == 0:
-            return num1
+        while num1_bit_count != num2_bit_count:
+            if num1_bit_count < num2_bit_count and x & (1 << i) == 0:
+                x |= 1 << i
+                num1_bit_count += 1
+            elif num1_bit_count > num2_bit_count and x & (1 << i):
+                x ^= 1 << i
+                num1_bit_count -= 1
+            i += 1
 
-        res = 0
-        digit = 0
+        return x
 
-        if diff < 0:
-            temp = num1
+    # def minimizeXor(self, num1: int, num2: int) -> int:
+    #     num1_bit_count = self.bit_count(num1)
+    #     num2_bit_count = self.bit_count(num2)
 
-            while diff < 0:
-                if temp & 1 == 0:
-                    res += 2**digit
-                    diff += 1
-                temp >>= 1
-                digit += 1
+    #     diff = num1_bit_count - num2_bit_count
 
-            res = num1 | res
-        else:
-            temp = num1
+    #     if diff == 0:
+    #         return num1
 
-            while diff > 0:
-                if temp & 1 == 1:
-                    res += 2**digit
-                    diff -= 1
-                temp >>= 1
-                digit += 1
+    #     res = 0
+    #     digit = 0
 
-            res = num1 ^ res
+    #     if diff < 0:
+    #         temp = num1
 
-        return res
+    #         while diff < 0:
+    #             if temp & 1 == 0:
+    #                 res += 2**digit
+    #                 diff += 1
+    #             temp >>= 1
+    #             digit += 1
+
+    #         res = num1 | res
+    #     else:
+    #         temp = num1
+
+    #         while diff > 0:
+    #             if temp & 1 == 1:
+    #                 res += 2**digit
+    #                 diff -= 1
+    #             temp >>= 1
+    #             digit += 1
+
+    #         res = num1 ^ res
+
+    #     return res
 
 
 class TestSolution(unittest.TestCase):
