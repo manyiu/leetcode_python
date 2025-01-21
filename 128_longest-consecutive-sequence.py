@@ -1,31 +1,32 @@
+from collections import defaultdict
 from typing import List
 import unittest
 
+
 class UnionFind:
     def __init__(self, n: int):
-        self.parent = {}
-        self.rank = {}
+        self.parent = [0] * n
+        self.rank = [0] * n
 
         for i in range(n):
             self.parent[i] = i
-            self.rank[i] = 0
 
-    def find(self, x: int):
-        curr = x
+    def find(self, n: int) -> int:
+        curr = n
 
         while curr != self.parent[curr]:
             self.parent[curr] = self.parent[self.parent[curr]]
             curr = self.parent[curr]
-        
+
         return curr
-    
+
     def union(self, a: int, b: int) -> bool:
         root_a = self.find(a)
         root_b = self.find(b)
 
         if root_a == root_b:
             return False
-        
+
         if self.rank[root_a] > self.rank[root_b]:
             self.parent[root_b] = root_a
         elif self.rank[root_a] < self.rank[root_b]:
@@ -33,7 +34,7 @@ class UnionFind:
         else:
             self.parent[root_b] = root_a
             self.rank[root_a] += 1
-        
+
         return True
 
 
@@ -43,34 +44,38 @@ class Solution:
         uf = UnionFind(n)
         num_to_index = dict()
 
+        for i, num in enumerate(nums):
+            if num in num_to_index:
+                continue
+            num_to_index[num] = i
+            if num - 1 in num_to_index:
+                uf.union(i, num_to_index[num - 1])
+            if num + 1 in num_to_index:
+                uf.union(i, num_to_index[num + 1])
+
+        res = 0
+        group_count = defaultdict(int)
+
         for i in range(n):
-            num_to_index[nums[i]] = i
-            if nums[i] - 1 in num_to_index:
-                uf.union(i, num_to_index[nums[i] - 1])
-            if nums[i] + 1 in num_to_index:
-                uf.union(i, num_to_index[nums[i] +1])
-
-        group_count = dict()
-        result = 0
-
-        for i in num_to_index.values():
             root = uf.find(i)
+            group_count[root] += 1
+            res = max(res, group_count[root])
 
-            if root in group_count:
-                group_count[root] += 1
-            else:
-                group_count[root] = 1
+        return res
 
-            if group_count[root] > result:
-                result = group_count[root]
-
-        return result
 
 class TestSolution(unittest.TestCase):
-    def test(self):
+    def test_1(self):
         nums = [100, 4, 200, 1, 3, 2]
-        self.assertEqual(Solution().longestConsecutive(nums), 4)
-        nums = [0,3,7,2,5,8,4,6,0,1]
-        self.assertEqual(Solution().longestConsecutive(nums), 9)
-        nums = [1,2,0,1]
-        self.assertEqual(Solution().longestConsecutive(nums), 3)
+        output = 4
+        self.assertEqual(Solution().longestConsecutive(nums), output)
+
+    def test_2(self):
+        nums = [0, 3, 7, 2, 5, 8, 4, 6, 0, 1]
+        output = 9
+        self.assertEqual(Solution().longestConsecutive(nums), output)
+
+    def test_3(self):
+        nums = [1, 2, 0, 1]
+        output = 3
+        self.assertEqual(Solution().longestConsecutive(nums), output)
