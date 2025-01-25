@@ -34,8 +34,10 @@ class TestSolution(unittest.TestCase):
         nums = [1, 7, 6, 18, 2, 1]
         limit = 3
         output = [1, 6, 7, 18, 1, 2]
+        self.assertEqual(Solution().lexicographicallySmallestArray(nums, limit), output)
 
     def test_3(self):
         nums = ([1, 7, 28, 19, 10],)
         limit = 3
         output = [1, 7, 28, 19, 10]
+        self.assertEqual(Solution().lexicographicallySmallestArray(nums, limit), output)
