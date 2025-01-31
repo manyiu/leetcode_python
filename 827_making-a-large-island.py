@@ -66,6 +66,55 @@ class Solution:
 
         return res
 
+    # def largestIsland(self, grid: List[List[int]]) -> int:
+    #     ROWS = len(grid)
+    #     COLS = len(grid[0])
+
+    #     directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+    #     def dfs(r: int, c: int, visit: set) -> int:
+    #         if (
+    #             r < 0
+    #             or c < 0
+    #             or r >= ROWS
+    #             or c >= COLS
+    #             or grid[r][c] == 0
+    #             or (r, c) in visit
+    #         ):
+    #             return 0
+
+    #         visit.add((r, c))
+
+    #         count = 1
+
+    #         for dr, dc in directions:
+    #             nr = r + dr
+    #             nc = c + dc
+
+    #             count += dfs(nr, nc, visit)
+
+    #         return count
+
+    #     res = 0
+
+    #     for r in range(ROWS):
+    #         for c in range(COLS):
+    #             count = 0
+    #             visit = set()
+
+    #             for dr, dc in directions:
+    #                 nr = r + dr
+    #                 nc = c + dc
+
+    #                 count += dfs(nr, nc, visit)
+
+    #             if (r, c) not in visit:
+    #                 count += 1
+
+    #             res = max(res, count)
+
+    #     return res
+
 
 class TestSolution(unittest.TestCase):
     def test_1(self):
