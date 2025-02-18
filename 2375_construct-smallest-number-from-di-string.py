@@ -4,35 +4,47 @@ import unittest
 class Solution:
     def smallestNumber(self, pattern: str) -> str:
         res = []
-        used = set()
+        stack = []
 
-        def backtrack(idx: int, num: int):
-            if num <= 0 or num >= 10 or num in used:
-                return False
+        for i in range(len(pattern) + 1):
+            stack.append(i + 1)
 
-            res.append(num)
-            used.add(num)
+            while stack and (i == len(pattern) or pattern[i] == "I"):
+                res.append(stack.pop())
 
-            if len(res) == len(pattern) + 1:
-                return True
+        return "".join(str(x) for x in res)
 
-            if pattern[idx] == "I":
-                for i in range(num + 1, 10):
-                    if backtrack(idx + 1, i):
-                        return True
-            else:
-                for j in range(num - 1, 0, -1):
-                    if backtrack(idx + 1, j):
-                        return True
+    # def smallestNumber(self, pattern: str) -> str:
+    #     res = []
+    #     used = set()
 
-            res.pop()
-            used.remove(num)
+    #     def backtrack(idx: int, num: int):
+    #         if num <= 0 or num >= 10 or num in used:
+    #             return False
 
-            return False
+    #         res.append(num)
+    #         used.add(num)
 
-        for num in range(1, 10):
-            if backtrack(0, num):
-                return "".join(str(x) for x in res)
+    #         if len(res) == len(pattern) + 1:
+    #             return True
+
+    #         if pattern[idx] == "I":
+    #             for i in range(num + 1, 10):
+    #                 if backtrack(idx + 1, i):
+    #                     return True
+    #         else:
+    #             for j in range(num - 1, 0, -1):
+    #                 if backtrack(idx + 1, j):
+    #                     return True
+
+    #         res.pop()
+    #         used.remove(num)
+
+    #         return False
+
+    #     for num in range(1, 10):
+    #         if backtrack(0, num):
+    #             return "".join(str(x) for x in res)
 
 
 class TestSolution(unittest.TestCase):
