@@ -8,17 +8,17 @@ class Solution:
     def putMarbles(self, weights: List[int], k: int) -> int:
         n = len(weights) - 1
 
-        sum = [0] * n
+        adj_sum = [0] * n
 
-        for i in range(len(sum)):
-            sum[i] = weights[i] + weights[i + 1]
+        for i in range(len(adj_sum)):
+            adj_sum[i] = weights[i] + weights[i + 1]
 
-        sum.sort()
+        adj_sum.sort()
 
         res = 0
 
         for i in range(k - 1):
-            res += sum[n - 1 - i] - sum[i]
+            res += adj_sum[n - 1 - i] - adj_sum[i]
 
         return res
 
