@@ -4,22 +4,34 @@ import unittest
 
 class Solution:
     def maximumTripletValue(self, nums: List[int]) -> int:
-        prefix_max = [0] * len(nums)
-        suffix_max = [0] * len(nums)
-
-        prefix_max[0] = nums[0]
-        suffix_max[-1] = nums[-1]
-
-        for i in range(1, len(nums)):
-            prefix_max[i] = max(prefix_max[i - 1], nums[i])
-            suffix_max[-(i + 1)] = max(suffix_max[-i], nums[-(i + 1)])
-
+        i_max = 0
+        diff_max = 0
         res = 0
 
-        for i in range(1, len(nums) - 1):
-            res = max(res, (prefix_max[i - 1] - nums[i]) * (suffix_max[i + 1]))
+        for k in range(len(nums)):
+            res = max(res, diff_max * nums[k])
+            i_max = max(i_max, nums[k])
+            diff_max = max(diff_max, i_max - nums[k])
 
-        return res or 0
+        return res
+
+    # def maximumTripletValue(self, nums: List[int]) -> int:
+    #     prefix_max = [0] * len(nums)
+    #     suffix_max = [0] * len(nums)
+
+    #     prefix_max[0] = nums[0]
+    #     suffix_max[-1] = nums[-1]
+
+    #     for i in range(1, len(nums)):
+    #         prefix_max[i] = max(prefix_max[i - 1], nums[i])
+    #         suffix_max[-(i + 1)] = max(suffix_max[-i], nums[-(i + 1)])
+
+    #     res = 0
+
+    #     for i in range(1, len(nums) - 1):
+    #         res = max(res, (prefix_max[i - 1] - nums[i]) * (suffix_max[i + 1]))
+
+    #     return res or 0
 
 
 class TestSolution(unittest.TestCase):
